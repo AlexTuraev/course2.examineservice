@@ -37,7 +37,6 @@ class JavaQuestionServiceTest {
                         new Question("Вопрос5", "Ответ5")
                 )
         );
-        System.out.println("resArrayList = " + resArrayList);
         return resArrayList;
     }
 
