@@ -3,9 +3,9 @@ package pro.sky.java.course2.examineservice.service;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pro.sky.java.course2.examineservice.domain.Question;
+import pro.sky.java.course2.examineservice.exceptions.BadRequest;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -18,11 +18,20 @@ public class ExaminerServiceImpl implements ExaminerService{
     }
 
     public Collection<Question> getQuestions(int amount){
-        /*Question q1 = questionService.getRandomQuestion();
-        Question q2 = questionService.getRandomQuestion();
+        if (amount > questionService.getAll().size()) {
+            throw new BadRequest("Количество требуемых уникальных вопросов превышает их количество в базе");
+        }
 
-        Collection <Question> questionCollection = Stream.of(q1,q2).collect(Collectors.toList());
-        return questionCollection;*/
-        return null; // ДОПИСАТЬ
+        List <Question> copyQuestions = new ArrayList<>(questionService.getAll());
+
+        Set<Question> set = new HashSet<>();
+
+        while (set.size() < amount) {
+            Question question = QuestionService.getRandomQuestion(copyQuestions);
+            set.add(question);
+            copyQuestions.remove(question); // чтобы повторно не выбирать вопрос
+        }
+
+        return set;
     }
 }

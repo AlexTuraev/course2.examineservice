@@ -6,8 +6,6 @@ public class Question {
     String question;
     String answer;
 
-    // КУРСОВАЯ РАБОТА 2-Й КУРС JAVA
-
     public Question(String question, String answer) {
         this.question = question;
         this.answer = answer;

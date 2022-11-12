@@ -13,7 +13,9 @@ class JavaQuestionServiceTest {
 
     @BeforeEach
     void beforeActions() {
-        javaQuestionService.questions.clear();
+        //javaQuestionService.questions.clear();
+        javaQuestionService.removeAll();
+
     }
 
     void addSomeInitialQuestions() {
@@ -28,9 +30,9 @@ class JavaQuestionServiceTest {
     void add() {
         addSomeInitialQuestions();
 
-        assertThat(javaQuestionService.questions.contains(new Question("Вопрос1", "Ответ1"))).isTrue();
-        assertThat(javaQuestionService.questions.contains(new Question("Вопрос2", "Ответ2"))).isTrue();
-        assertThat(javaQuestionService.questions.contains(new Question("Вопрос4", "Ответ4"))).isFalse();
+        assertThat(javaQuestionService.getAll().contains(new Question("Вопрос1", "Ответ1"))).isTrue();
+        assertThat(javaQuestionService.getAll().contains(new Question("Вопрос2", "Ответ2"))).isTrue();
+        assertThat(javaQuestionService.getAll().contains(new Question("Вопрос6", "Ответ6"))).isFalse();
     }
 
     @Test
@@ -39,21 +41,21 @@ class JavaQuestionServiceTest {
         javaQuestionService.add(new Question("Вопрос12", "Ответ12"));
         javaQuestionService.add(new Question("Вопрос13", "Ответ13"));
 
-        assertThat(javaQuestionService.questions.contains(new Question("Вопрос11", "Ответ11"))).isTrue();
-        assertThat(javaQuestionService.questions.contains(new Question("Вопрос12", "Ответ12"))).isTrue();
-        assertThat(javaQuestionService.questions.contains(new Question("Вопрос14", "Ответ14"))).isFalse();
+        assertThat(javaQuestionService.getAll().contains(new Question("Вопрос11", "Ответ11"))).isTrue();
+        assertThat(javaQuestionService.getAll().contains(new Question("Вопрос12", "Ответ12"))).isTrue();
+        assertThat(javaQuestionService.getAll().contains(new Question("Вопрос14", "Ответ14"))).isFalse();
     }
 
     @Test
     void remove() {
         addSomeInitialQuestions();
         javaQuestionService.remove(new Question("Вопрос1", "Ответ1"));
-        assertThat(javaQuestionService.questions.contains(new Question("Вопрос1", "Ответ1"))).isFalse();
-        assertThat(javaQuestionService.questions.contains(new Question("Вопрос2", "Ответ2"))).isTrue();
-        assertThat(javaQuestionService.questions.contains(new Question("Вопрос3", "Ответ3"))).isTrue();
+        assertThat(javaQuestionService.getAll().contains(new Question("Вопрос1", "Ответ1"))).isFalse();
+        assertThat(javaQuestionService.getAll().contains(new Question("Вопрос2", "Ответ2"))).isTrue();
+        assertThat(javaQuestionService.getAll().contains(new Question("Вопрос3", "Ответ3"))).isTrue();
 
         javaQuestionService.remove(new Question("Вопрос2", "Ответ2"));
-        assertThat(javaQuestionService.questions.contains(new Question("Вопрос2", "Ответ2"))).isFalse();
+        assertThat(javaQuestionService.getAll().contains(new Question("Вопрос2", "Ответ2"))).isFalse();
     }
 
     @Test
