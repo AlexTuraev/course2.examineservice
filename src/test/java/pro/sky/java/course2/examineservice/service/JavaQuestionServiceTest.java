@@ -5,6 +5,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pro.sky.java.course2.examineservice.domain.Question;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,12 +21,24 @@ class JavaQuestionServiceTest {
 
     }
 
-    void addSomeInitialQuestions() {
+    List<Question> addSomeInitialQuestions() {
         javaQuestionService.add("Вопрос1", "Ответ1");
         javaQuestionService.add("Вопрос2", "Ответ2");
         javaQuestionService.add("Вопрос3", "Ответ3");
         javaQuestionService.add("Вопрос4", "Ответ4");
         javaQuestionService.add("Вопрос5", "Ответ5");
+
+        List resArrayList = new ArrayList<>(
+                List.of(
+                        new Question("Вопрос1", "Ответ1"),
+                        new Question("Вопрос2", "Ответ2"),
+                        new Question("Вопрос3", "Ответ3"),
+                        new Question("Вопрос4", "Ответ4"),
+                        new Question("Вопрос5", "Ответ5")
+                )
+        );
+        System.out.println("resArrayList = " + resArrayList);
+        return resArrayList;
     }
 
     @Test
@@ -60,13 +75,13 @@ class JavaQuestionServiceTest {
 
     @Test
     void getAll() {
-        /*addSomeInitialQuestions();
-        System.out.println(javaQuestionService.getAll());*/
+        List <Question> expected = addSomeInitialQuestions();
+        assertThat(javaQuestionService.getAll()).isEqualTo(expected);
+        javaQuestionService.add("ВопросNew", "ОтветNew");
+        assertThat(javaQuestionService.getAll()).isNotEqualTo(expected);
     }
 
     @Test
     void getRandomQuestion() {
-        /*addSomeInitialQuestions();
-        System.out.println(javaQuestionService.getRandomQuestion());*/
     }
 }
